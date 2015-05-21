@@ -10,9 +10,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import jenkins.model.Jenkins;
-
 import com.amazonaws.AmazonClientException;
+import hudson.model.Hudson;
 
 /**
  * @author Bruno Meneguello
@@ -35,7 +34,7 @@ public class EC2SlaveMonitor extends AsyncPeriodicWork {
 
     @Override
     protected void execute(TaskListener listener) throws IOException, InterruptedException {
-        for (Node node : Jenkins.getInstance().getNodes()) {
+        for (Node node : Hudson.getInstance().getNodes()) {
             if (node instanceof EC2AbstractSlave) {
                 final EC2AbstractSlave ec2Slave = (EC2AbstractSlave) node;
                 try {
@@ -53,7 +52,7 @@ public class EC2SlaveMonitor extends AsyncPeriodicWork {
 
     private void removeNode(EC2AbstractSlave ec2Slave) {
         try {
-            Jenkins.getInstance().removeNode(ec2Slave);
+            Hudson.getInstance().removeNode(ec2Slave);
         } catch (IOException e) {
             LOGGER.log(Level.WARNING, "Failed to remove node: " + ec2Slave.getInstanceId());
         }

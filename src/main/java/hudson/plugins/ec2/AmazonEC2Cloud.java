@@ -37,8 +37,6 @@ import java.util.List;
 import java.util.Locale;
 import javax.servlet.ServletException;
 
-import jenkins.model.Jenkins;
-
 import org.apache.commons.lang.StringUtils;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
@@ -48,6 +46,7 @@ import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.model.DescribeRegionsResult;
 import com.amazonaws.services.ec2.model.Region;
+import hudson.model.Hudson;
 
 /**
  * The original implementation of {@link EC2Cloud}.
@@ -127,14 +126,14 @@ public class AmazonEC2Cloud extends EC2Cloud {
 
         public FormValidation doCheckCloudName(@QueryParameter String value) {
             try {
-                Jenkins.checkGoodName(value);
+                Hudson.checkGoodName(value);
             } catch (Failure e){
                 return FormValidation.error(e.getMessage());
             }
 
             String cloudId = createCloudId(value);
             int found = 0;
-            for (Cloud c : Jenkins.getInstance().clouds) {
+            for (Cloud c : Hudson.getInstance().clouds) {
                 if (c.name.equals(cloudId)) {
                     found++;
                 }

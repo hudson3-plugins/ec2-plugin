@@ -47,7 +47,6 @@ import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 
-import jenkins.slaves.iterators.api.NodeIterator;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.kohsuke.stapler.DataBoundConstructor;
@@ -452,12 +451,15 @@ public class SlaveTemplate implements Describable<SlaveTemplate> {
             logger.println("Starting existing instance: "+existingInstance+ " result:"+siResult);
             LOGGER.fine("Starting existing instance: "+existingInstance+ " result:"+siResult);
 
-            for (EC2AbstractSlave ec2Node: NodeIterator.nodes(EC2AbstractSlave.class)){
-                if (ec2Node.getInstanceId().equals(existingInstance.getInstanceId())) {
-                    logger.println("Found existing corresponding Jenkins slave: "+ec2Node);
-                    LOGGER.finer("Found existing corresponding Jenkins slave: "+ec2Node);
-                    return ec2Node;
-                }
+            List<Node> nodes = Hudson.getInstance().getNodes();
+            for (int i = 0, len = nodes.size(); i < len; i++) {
+            	if (!(nodes.get(i) instanceof EC2AbstractSlave))
+            		continue;
+            	EC2AbstractSlave ec2Node = (EC2AbstractSlave) nodes.get(i);
+            	if (ec2Node.getInstanceId().equals(existingInstance.getInstanceId())) {
+                    logger.println("Found existing corresponding: "+ec2Node);
+            		return ec2Node;
+            	}
             }
 
             // Existing slave not found

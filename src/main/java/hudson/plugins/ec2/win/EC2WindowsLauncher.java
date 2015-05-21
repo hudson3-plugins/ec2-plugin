@@ -37,7 +37,7 @@ public class EC2WindowsLauncher extends EC2ComputerLauncher {
             logger.println("Creating tmp directory if it does not exist");
             connection.execute("if not exist " + tmpDir + " mkdir " + tmpDir);
             
-            if(initScript!=null && initScript.trim().length()>0 && !connection.exists(tmpDir + ".jenkins-init")) {
+            if(initScript!=null && initScript.trim().length()>0 && !connection.exists(tmpDir + ".hudson-init")) {
                 logger.println("Executing init script");
                 OutputStream init = connection.putFile(tmpDir + "init.bat");
                 init.write(initScript.getBytes("utf-8"));
@@ -51,7 +51,7 @@ public class EC2WindowsLauncher extends EC2ComputerLauncher {
                     return;
                 }
 
-                OutputStream initGuard = connection.putFile(tmpDir + ".jenkins-init");
+                OutputStream initGuard = connection.putFile(tmpDir + ".hudson-init");
                 initGuard.write("init ran".getBytes());
                 logger.println("init script failed ran successfully");
             }

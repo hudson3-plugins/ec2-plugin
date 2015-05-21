@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -->
 <div>
-  This plugin integrates Jenkins with 
+  This plugin integrates Hudson with 
   <a href="http://aws.amazon.com/ec2/">Amazon EC2</a> or anything implementing
   the EC2 API's such as an Ubuntu.
 </div>

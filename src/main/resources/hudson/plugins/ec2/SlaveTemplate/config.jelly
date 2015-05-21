@@ -46,7 +46,7 @@ THE SOFTWARE.
   </f:entry>
 
   <f:optionalBlock name="spotConfig" title="Use Spot Instance" checked="${instance.spotConfig != null}">
-    <f:description>Be aware, AMIs used for Spot slaves must be configured to callback to Jenkins when
+    <f:description>Be aware, AMIs used for Spot slaves must be configured to callback to Hudson when
     a Spot request has been fulfilled and the instance has become available. The call back script can
     be found by clicking the following link. <a href="${resURL}/plugin/ec2/AMI-Scripts/ubuntu-ami-setup.sh">Ubunti-ami-setup</a>
     </f:description>

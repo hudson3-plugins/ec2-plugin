@@ -47,8 +47,6 @@ import java.net.Proxy;
 import java.net.URL;
 import java.util.List;
 
-import jenkins.model.Jenkins;
-
 import org.apache.commons.io.IOUtils;
 
 import com.amazonaws.AmazonClientException;
@@ -296,11 +294,11 @@ public class EC2UnixLauncher extends EC2ComputerLauncher {
                 }
 
                 int port = computer.getSshPort();
-                Integer slaveConnectTimeout = Integer.getInteger("jenkins.ec2.slaveConnectTimeout", 10000);
+                Integer slaveConnectTimeout = Integer.getInteger("hudson.ec2.slaveConnectTimeout", 10000);
                 logger.println("Connecting to " + host + " on port " + port + ", with timeout " + slaveConnectTimeout + ".");
                 Connection conn = new Connection(host, port);
-                ProxyConfiguration proxyConfig = Jenkins.getInstance().proxy;
-                Proxy proxy = proxyConfig == null ? Proxy.NO_PROXY : proxyConfig.createProxy(host);
+                ProxyConfiguration proxyConfig = Hudson.getInstance().proxy;
+                Proxy proxy = proxyConfig == null ? Proxy.NO_PROXY : proxyConfig.createProxy();
                 if (! proxy.equals(Proxy.NO_PROXY) && proxy.address() instanceof InetSocketAddress) {
                     InetSocketAddress address = (InetSocketAddress) proxy.address();
                     HTTPProxyData proxyData = null;

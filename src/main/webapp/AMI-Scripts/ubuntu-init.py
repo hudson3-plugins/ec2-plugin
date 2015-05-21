@@ -4,7 +4,7 @@ import httplib
 import string
 
 # To install run:
-# sudo wget http://$JENKINS_URL/plugin/ec2/AMI-Scripts/ubuntu-init.py -O /usr/bin/userdata
+# sudo wget http://$HUDSON_URL/plugin/ec2/AMI-Scripts/ubuntu-init.py -O /usr/bin/userdata
 # sudo chmod +x /etc/init.d/userdata
 # add the following line to /etc/rc.local "python /usr/bin/userdata"
 
@@ -26,7 +26,7 @@ jenkinsUrl = ""
 slaveName = ""
 
 for arg in args:
-    if arg.split("=")[0] == "JENKINS_URL":
+    if arg.split("=")[0] == "HUDSON_URL":
         jenkinsUrl = arg.split("=")[1]
     if arg.split("=")[0] == "SLAVE_NAME":
         slaveName = arg.split("=")[1]

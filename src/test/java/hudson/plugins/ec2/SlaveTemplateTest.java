@@ -49,6 +49,15 @@ public class SlaveTemplateTest extends HudsonTestCase {
         super.tearDown();
         AmazonEC2Cloud.testMode = false;
     }
+    
+    @Override
+    public WebClient createWebClient(){
+        WebClient wc = super.createWebClient();
+        wc.setThrowExceptionOnScriptError(false); 
+        wc.setThrowExceptionOnFailingAjax(false); 
+        wc.setThrowExceptionOnFailingStatusCode(false);
+        return wc;
+    }
 
     public void testConfigRoundtrip() throws Exception {
         String ami = "ami1";

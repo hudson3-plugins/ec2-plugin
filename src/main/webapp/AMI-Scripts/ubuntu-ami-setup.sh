@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ "$#" -ne 1 ]; then
-  echo "Usage: $0 <IP:Port of Jenkins Server>" >&2
+  echo "Usage: $0 <IP:Port of Hudson Server>" >&2
   exit 1
 fi
 
