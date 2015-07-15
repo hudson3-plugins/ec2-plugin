@@ -481,6 +481,11 @@ public abstract class EC2Cloud extends Cloud {
         ClientConfiguration config = new ClientConfiguration();
         config.setSignerOverride("QueryStringSignerType");
         ProxyConfiguration proxyConfig = Hudson.getInstance().proxy;
+        if (proxyConfig != null){
+            if (proxyConfig.getName() == null){
+                proxyConfig = null;
+            }
+        }
         Proxy proxy = proxyConfig == null ? Proxy.NO_PROXY : proxyConfig.createProxy();
         if (!proxy.equals(Proxy.NO_PROXY) && proxy.address() instanceof InetSocketAddress) {
             InetSocketAddress address = (InetSocketAddress) proxy.address();
